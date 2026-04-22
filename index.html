@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moises Moreno — Fullstack Developer</title>
+  <meta name="description" content="Moises Moreno, Desarrollador Fullstack con más de 4 años de experiencia en .NET/C#, Laravel/Vue.js y .NET MAUI. Buenos Aires, Argentina.">
+  <meta property="og:title" content="Moises Moreno — Fullstack Developer">
+  <meta property="og:description" content="Desarrollador Fullstack especializado en .NET/C#, Laravel/Vue.js y apps móviles con .NET MAUI. Buenos Aires, Argentina.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --accent: #7cff6b;
+      --accent2: #00d4ff;
+      --text: #e8e8f0;
+      --muted: #8a8a9a;
+      --border: rgba(255,255,255,0.07);
+      --mono: 'DM Mono', monospace;
+      --display: 'Syne', sans-serif;
+      --body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.4; }
+
+    /* Skip link */
+    .skip-link { position: absolute; top: -100%; left: 1rem; background: var(--accent); color: #000; padding: 0.5rem 1rem; font-family: var(--mono); font-size: 0.8rem; border-radius: 0 0 4px 4px; z-index: 9998; transition: top 0.2s; }
+    .skip-link:focus { top: 0; }
+
+    /* Nav */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a:focus { color: var(--accent); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; transition: all 0.25s; }
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Hero */
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 4rem; position: relative; overflow: hidden; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(124,255,107,0.08) 0%, transparent 70%); top: 10%; right: -100px; pointer-events: none; }
+    .hero-content { position: relative; max-width: 900px; }
+    .hero-tag { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-tag::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent); }
+    h1 { font-family: var(--display); font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+    h1 .line { display: block; }
+    h1 .line-accent { color: var(--accent); }
+    .hero-desc { font-size: 1.1rem; color: var(--muted); max-width: 520px; margin-bottom: 2rem; line-height: 1.7; font-weight: 300; }
+    .hero-available { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; background: rgba(124,255,107,0.08); border: 1px solid rgba(124,255,107,0.25); padding: 0.4rem 0.9rem; border-radius: 99px; margin-bottom: 2rem; }
+    .hero-available::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(124,255,107,0.4); } 50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(124,255,107,0); } }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 0.85rem 1.8rem; border-radius: 4px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; border: none; }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 600; }
+    .btn-primary:hover, .btn-primary:focus { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,255,107,0.3); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--muted); background: transparent; }
+    .btn-ghost:hover, .btn-ghost:focus { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* Sections */
+    section { padding: 7rem 3rem; }
+    .section-label { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--accent); opacity: 0.4; }
+    h2 { font-family: var(--display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 3rem; }
+
+    /* About */
+    #about { border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { color: var(--muted); font-weight: 300; margin-bottom: 1.2rem; line-height: 1.8; }
+    .about-text p strong { color: var(--text); font-weight: 400; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 2rem; }
+    .stat { background: var(--surface); padding: 1.5rem; }
+    .stat-num { font-family: var(--display); font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+    .stat-label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.4rem; }
+
+    /* Stack */
+    #stack { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stack-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .stack-category { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+    .stack-category:hover { border-color: rgba(124,255,107,0.3); transform: translateY(-4px); }
+    .stack-cat-label { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .stack-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { font-family: var(--mono); font-size: 0.72rem; color: var(--text); background: var(--surface2); border: 1px solid var(--border); padding: 0.3rem 0.7rem; border-radius: 3px; }
+    .tag-dim { opacity: 0.6; }
+
+    /* Experience */
+    #experience { border-top: 1px solid var(--border); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0; width: 1px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -2.4rem; top: 0.5rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+    .timeline-dot.muted { background: var(--muted); box-shadow: none; }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .timeline-company { font-family: var(--display); font-size: 1.2rem; font-weight: 700; }
+    .timeline-period { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; white-space: nowrap; margin-top: 0.2rem; }
+    .timeline-role { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .timeline-desc { color: var(--muted); font-size: 0.95rem; font-weight: 300; line-height: 1.7; margin-bottom: 1rem; }
+    .timeline-bullets { list-style: none; margin-bottom: 1rem; }
+    .timeline-bullets li { color: var(--muted); font-size: 0.9rem; font-weight: 300; line-height: 1.7; padding-left: 1.2rem; position: relative; }
+    .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
+
+    /* Education */
+    #education { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .education-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .edu-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.75rem; transition: border-color 0.2s; }
+    .edu-card:hover { border-color: rgba(124,255,107,0.3); }
+    .edu-institution { font-family: var(--display); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .edu-degree { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .edu-period { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; }
+    .edu-langs { margin-top: 1.5rem; }
+    .edu-langs .stack-cat-label { margin-bottom: 0.75rem; }
+
+    /* Projects */
+    #projects { border-top: 1px solid var(--border); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .project-card:hover { border-color: rgba(124,255,107,0.25); transform: translateY(-4px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-type { font-family: var(--mono); font-size: 0.68rem; color: var(--accent2); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+    .project-title { font-family: var(--display); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .project-desc { color: var(--muted); font-size: 0.9rem; font-weight: 300; line-height: 1.6; margin-bottom: 1.5rem; flex: 1; }
+    .project-footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; }
+    .project-link { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; border: 1px solid var(--border); padding: 0.4rem 0.9rem; border-radius: 3px; transition: all 0.2s; display: flex; align-items: center; gap: 0.4rem; }
+    .project-link:hover, .project-link:focus { color: var(--accent); border-color: var(--accent); }
+    .project-link svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+    .card-ghost { border-style: dashed; justify-content: center; align-items: center; text-align: center; min-height: 200px; }
+    .card-ghost-label { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; color: var(--accent); }
+    .card-ghost-title { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text); }
+    .card-ghost-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    /* Contact */
+    #contact { border-top: 1px solid var(--border); text-align: center; }
+    .contact-wrapper { max-width: 600px; margin: 0 auto; }
+    .contact-tagline { color: var(--muted); font-size: 1.05rem; font-weight: 300; margin-bottom: 3rem; line-height: 1.7; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .contact-link { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border); padding: 0.75rem 1.25rem; border-radius: 4px; transition: all 0.2s; }
+    .contact-link:hover, .contact-link:focus { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+    .contact-link svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+    .contact-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* Footer */
+    footer { padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .blink { animation: blink 1.2s step-end infinite; color: var(--accent); }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; background: rgba(10,10,15,0.97); border-bottom: 1px solid var(--border); padding: 1rem 0; }
+      .nav-links.open { display: flex; }
+      .nav-links li { border-bottom: 1px solid var(--border); }
+      .nav-links a { display: block; padding: 0.85rem 1.5rem; }
+      .hamburger { display: flex; }
+      section { padding: 5rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .contact-links { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG Sprite -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+  </symbol>
+  <symbol id="icon-linkedin" viewBox="0 0 24 24">
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+  </symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24">
+    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+  </symbol>
+  <symbol id="icon-download" viewBox="0 0 24 24">
+    <path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 8h14v2H5v-2z"/>
+  </symbol>
+  <symbol id="icon-external" viewBox="0 0 24 24">
+    <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+  </symbol>
+</svg>
+
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+<nav aria-label="Navegación principal">
+  <a href="#hero" class="nav-logo">~/MoisesM<span class="blink">_</span></a>
+  <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-menu" role="list">
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#experience">Experiencia</a></li>
+    <li><a href="#education">Educación</a></li>
+    <li><a href="#projects">Proyectos</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+</nav>
+
+<main id="main-content">
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Presentación">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Fullstack Developer · Buenos Aires, ARG</div>
+      <h1>
+        <span class="line">Moises</span>
+        <span class="line">Moreno</span>
+        <span class="line line-accent">Fullstack Dev</span>
+      </h1>
+      <p class="hero-desc">
+        Construyo aplicaciones web y móviles con foco en rendimiento,
+        arquitectura limpia y experiencias que funcionan en el mundo real.
+        Backend sólido, frontend preciso.
+      </p>
+      <div class="hero-available" role="status" aria-label="Disponible para nuevas oportunidades">
+        Disponible para nuevas oportunidades
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">Ver proyectos</a>
+        <a href="https://github.com/LenoviMAD" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          GitHub →
+        </a>
+        <!-- Descargar CV: colocá MoisesMorenoCV.pdf en esta misma carpeta -->
+        <a href="./MoisesMorenoCV.pdf" download class="btn btn-ghost">
+          <svg aria-hidden="true"><use href="#icon-download"/></svg>
+          Descargar CV
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="reveal">
+      <div class="section-label">01 — Sobre mí</div>
+      <h2 id="about-title">Código con<br>propósito</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>Soy desarrollador fullstack con más de <strong>4 años de experiencia profesional</strong>, especializado en ecosistemas .NET/C# y Laravel/Vue.js. Me gradué en Ciencias de la Computación (UNE, 2022) y trabajo en proyectos que van desde sistemas enterprise hasta aplicaciones móviles con sincronización offline.</p>
+        <p>Actualmente trabajo en <strong>Distri-Sur S.A.</strong> desarrollando una app multiplataforma con .NET MAUI, gestionando pedidos, visitas con GPS y operación en entornos con conectividad intermitente.</p>
+        <p>También tengo experiencia en integración de sistemas vía webhooks, ambientes Linux, y trabajo freelance con clientes de distintos rubros. Inglés intermedio, orientado a resultados y con rápida curva de aprendizaje.</p>
+      </div>
+      <div>
+        <div class="about-stats" role="list" aria-label="Estadísticas">
+          <div class="stat" role="listitem">
+            <div class="stat-num" aria-label="Más de 5">5+</div>
+            <div class="stat-label">Años de exp.</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat-num" aria-label="13">13</div>
+            <div class="stat-label">Repos públicos</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat-num" aria-label="4">4</div>
+            <div class="stat-label">Empresas</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat-num" aria-label="Infinito">∞</div>
+            <div class="stat-label">Cafés</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack" aria-labelledby="stack-title">
+    <div class="reveal">
+      <div class="section-label">02 — Stack tecnológico</div>
+      <h2 id="stack-title">Herramientas<br>de trabajo</h2>
+    </div>
+    <div class="stack-categories reveal">
+      <div class="stack-category">
+        <div class="stack-cat-label">Backend</div>
+        <div class="stack-tags">
+          <span class="tag">C#</span>
+          <span class="tag">.NET / MAUI</span>
+          <span class="tag">Laravel</span>
+          <span class="tag">PHP</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">SOAP / Web Services</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <div class="stack-cat-label">Frontend</div>
+        <div class="stack-tags">
+          <span class="tag">Vue.js</span>
+          <span class="tag">Vuex</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">CSS</span>
+          <span class="tag">HTML</span>
+          <span class="tag tag-dim">React (en formación)</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <div class="stack-cat-label">Bases de datos</div>
+        <div class="stack-tags">
+          <span class="tag">SQL Server</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">MySQL</span>
+          <span class="tag tag-dim">MongoDB</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <div class="stack-cat-label">Mobile & Herramientas</div>
+        <div class="stack-tags">
+          <span class="tag">.NET MAUI</span>
+          <span class="tag">GPS / Geolocalización</span>
+          <span class="tag">Offline Sync</span>
+          <span class="tag">Git</span>
+          <span class="tag">Linux</span>
+          <span class="tag">Postman</span>
+          <span class="tag">Webhooks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" aria-labelledby="experience-title">
+    <div class="reveal">
+      <div class="section-label">03 — Experiencia</div>
+      <h2 id="experience-title">Trayectoria<br>profesional</h2>
+    </div>
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-company">Distri-Sur S.A.</div>
+            <div class="timeline-role">Desarrollador Fullstack — Mobile</div>
+          </div>
+          <div class="timeline-period">Jul 2025 — Presente</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>App multiplataforma Android/iOS con .NET MAUI y Razor: gestión de pedidos, control de visitas y GPS.</li>
+          <li>Operación offline con sincronización contra SQL Server en entornos con conectividad intermitente.</li>
+          <li>Trabajo en frontend y backend con reconocimiento positivo por parte de la dirección.</li>
+        </ul>
+        <div class="stack-tags">
+          <span class="tag">.NET MAUI</span>
+          <span class="tag">C#</span>
+          <span class="tag">Razor</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">GPS</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot muted" aria-hidden="true"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-company">Xatoxi Ltd</div>
+            <div class="timeline-role">Desarrollador Backend</div>
+          </div>
+          <div class="timeline-period">Mar 2025 — Abr 2025</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>Desarrollo de webhook central para múltiples proveedores con transformación dinámica de payloads.</li>
+          <li>Pruebas funcionales de endpoints con Postman, validación de errores y respuestas.</li>
+          <li>Gestión de archivos en servidor Linux en entorno productivo.</li>
+        </ul>
+        <div class="stack-tags">
+          <span class="tag">Webhooks</span>
+          <span class="tag">Linux</span>
+          <span class="tag">APIs REST</span>
+          <span class="tag">Postman</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot muted" aria-hidden="true"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-company">Freelance</div>
+            <div class="timeline-role">Desarrollador Fullstack</div>
+          </div>
+          <div class="timeline-period">Jul 2020 — Abr 2023</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>SPAs con Vue.js (Vuex, componentes globales) y APIs REST con Laravel.</li>
+          <li>Modelado y creación de bases de datos en PostgreSQL.</li>
+          <li>Documentación técnica y funcional, pruebas de rutas con Postman.</li>
+          <li>Proyectos destacados: ViajesItal, Landing, apiPlazmol.</li>
+        </ul>
+        <div class="stack-tags">
+          <span class="tag">Vue.js</span>
+          <span class="tag">Vuex</span>
+          <span class="tag">Laravel</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">PHP</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot muted" aria-hidden="true"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-company">Italcambio</div>
+            <div class="timeline-role">Analista Programador</div>
+          </div>
+          <div class="timeline-period">Jul 2019 — Sep 2021</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>Desarrollo de software en C# y .NET en entorno financiero de alta exigencia.</li>
+          <li>Creación e implementación de Web Service SOAP.</li>
+          <li>SP, funciones, tablas y backups en SQL Server, PostgreSQL y MySQL.</li>
+          <li>Desarrollo web con PHP, JavaScript, CSS y AJAX. Desarrollo del sistema ViajesItal.</li>
+        </ul>
+        <div class="stack-tags">
+          <span class="tag">C#</span>
+          <span class="tag">.NET</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">SOAP</span>
+          <span class="tag">PHP</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" aria-labelledby="education-title">
+    <div class="reveal">
+      <div class="section-label">04 — Educación e idiomas</div>
+      <h2 id="education-title">Formación<br>académica</h2>
+    </div>
+    <div class="education-grid reveal">
+      <div class="edu-card">
+        <div class="edu-institution">Universidad Nueva Esparta</div>
+        <div class="edu-degree">Licenciatura en Computación</div>
+        <div class="edu-period">2016 — 2022</div>
+      </div>
+      <div class="edu-card">
+        <div class="stack-cat-label" style="margin-bottom: 1rem;">Idiomas</div>
+        <div class="stack-tags" style="flex-direction: column; gap: 0.75rem;">
+          <div>
+            <span class="tag">Español</span>
+            <span style="font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-left: 0.5rem;">Nativo</span>
+          </div>
+          <div>
+            <span class="tag">Inglés</span>
+            <span style="font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-left: 0.5rem;">Intermedio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" aria-labelledby="projects-title">
+    <div class="reveal">
+      <div class="section-label">05 — Proyectos</div>
+      <h2 id="projects-title">Código en<br>producción</h2>
+    </div>
+    <div class="projects-grid reveal">
+
+      <div class="project-card">
+        <div class="project-type">Web · Sistema de gestión · Italcambio</div>
+        <div class="project-title">ViajesItal</div>
+        <p class="project-desc">Sistema de gestión de viajes para Italcambio. DataTables con datos en tiempo real, modals dinámicos y lógica JS. Backend PHP con integración AJAX. Desarrollado en entorno financiero de producción.</p>
+        <div class="project-footer">
+          <div class="stack-tags"><span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">PHP</span><span class="tag">AJAX</span></div>
+          <a href="https://github.com/LenoviMAD/ViajesItal" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver repositorio ViajesItal en GitHub">
+            <svg aria-hidden="true"><use href="#icon-github"/></svg>
+            Ver repo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Web · PHP modular · Freelance</div>
+        <div class="project-title">Landing con Descarga</div>
+        <p class="project-desc">Landing page con arquitectura modular en PHP. Sistema de descarga de archivos, cliente HTTP personalizado (xclient), capa de presentación separada y gestión de modals. Separación clara de responsabilidades.</p>
+        <div class="project-footer">
+          <div class="stack-tags"><span class="tag">PHP</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          <a href="https://github.com/LenoviMAD/Landing" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver repositorio Landing en GitHub">
+            <svg aria-hidden="true"><use href="#icon-github"/></svg>
+            Ver repo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Frontend · SPA · Vue.js</div>
+        <div class="project-title">CRUD Vue + API REST</div>
+        <p class="project-desc">SPA en Vue.js que consume una API REST externa. CRUD completo con Vuex para manejo de estado, componentes reutilizables y build con Vue CLI. Referencia de arquitectura para proyectos fullstack.</p>
+        <div class="project-footer">
+          <div class="stack-tags"><span class="tag">Vue.js</span><span class="tag">Vuex</span><span class="tag">JavaScript</span></div>
+          <a href="https://github.com/LenoviMAD/crudVue" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver repositorio crudVue en GitHub">
+            <svg aria-hidden="true"><use href="#icon-github"/></svg>
+            Ver repo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Backend · REST API · Laravel</div>
+        <div class="project-title">API Laravel</div>
+        <p class="project-desc">API REST completa con Laravel: rutas, controladores, migrations, resources y tests con PHPUnit. Documentada con Postman. Arquitectura lista para consumirse desde cualquier frontend o app mobile.</p>
+        <div class="project-footer">
+          <div class="stack-tags"><span class="tag">Laravel</span><span class="tag">PHP</span><span class="tag">PHPUnit</span><span class="tag">Postman</span></div>
+          <a href="https://github.com/LenoviMAD/apiLaravel" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver repositorio apiLaravel en GitHub">
+            <svg aria-hidden="true"><use href="#icon-github"/></svg>
+            Ver repo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Backend · REST API · Freelance</div>
+        <div class="project-title">API Plazmol</div>
+        <p class="project-desc">API REST con Laravel para cliente freelance con dominio de negocio propio. Estructura con seeders, migrations y configuración avanzada de base de datos. Organización por capas y documentación incluida.</p>
+        <div class="project-footer">
+          <div class="stack-tags"><span class="tag">Laravel</span><span class="tag">PHP</span><span class="tag">PostgreSQL</span></div>
+          <a href="https://github.com/LenoviMAD/apiPlazmol" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver repositorio apiPlazmol en GitHub">
+            <svg aria-hidden="true"><use href="#icon-github"/></svg>
+            Ver repo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card card-ghost">
+        <div class="card-ghost-label">+8 repositorios más</div>
+        <div class="card-ghost-title">Ver todo en GitHub</div>
+        <p class="card-ghost-desc">Explorá el resto de mis proyectos en mi perfil público.</p>
+        <a href="https://github.com/LenoviMAD" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          github.com/LenoviMAD →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="contact-wrapper reveal">
+      <div class="section-label" style="justify-content: center;">06 — Contacto</div>
+      <h2 id="contact-title">Trabajemos<br>juntos</h2>
+      <p class="contact-tagline">Abierto a nuevas oportunidades, proyectos freelance y colaboraciones. Si tenés algo interesante en mente, escribime.</p>
+      <div class="contact-links">
+        <a href="mailto:madmoisess@gmail.com" class="contact-link">
+          <svg aria-hidden="true"><use href="#icon-mail"/></svg>
+          madmoisess@gmail.com
+        </a>
+        <a href="tel:+5491124010157" class="contact-link">
+          <svg aria-hidden="true"><use href="#icon-phone"/></svg>
+          +54 9 11 2401-0157
+        </a>
+        <!-- TODO: reemplazá el href con tu URL real de LinkedIn -->
+        <a href="https://www.linkedin.com/in/moisesmorenodevides" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <svg aria-hidden="true"><use href="#icon-linkedin"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/LenoviMAD" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <svg aria-hidden="true"><use href="#icon-github"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="contact-actions">
+        <a href="mailto:madmoisess@gmail.com" class="btn btn-primary">Enviar mensaje</a>
+        <a href="./MoisesMorenoCV.pdf" download class="btn btn-ghost">
+          <svg aria-hidden="true"><use href="#icon-download"/></svg>
+          Descargar CV
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Moises Moreno — Fullstack Developer</p>
+  <p>Diseñado y construido desde Buenos Aires 🇦🇷</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stagger children
+  document.querySelectorAll('.stack-categories, .projects-grid, .timeline, .education-grid').forEach(parent => {
+    Array.from(parent.children).forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.08}s`;
+    });
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!expanded));
+    navMenu.classList.toggle('open');
+  });
+
+  // Close menu on link click (mobile)
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
