@@ -63,6 +63,7 @@
     .hero-available::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(124,255,107,0.4); } 50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(124,255,107,0); } }
     .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
 
     /* Buttons */
     .btn { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 0.85rem 1.8rem; border-radius: 4px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; border: none; }
@@ -177,6 +178,10 @@
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
       .contact-links { gap: 0.75rem; }
+      .hero-cta { flex-direction: column; align-items: stretch; }
+      .hero-cta .btn { justify-content: center; width: 100%; }
+      .contact-actions { flex-direction: column; align-items: stretch; }
+      .contact-actions .btn { justify-content: center; width: 100%; }
     }
   </style>
 </head>
@@ -247,7 +252,6 @@
         <a href="https://github.com/LenoviMAD" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
           GitHub →
         </a>
-        <!-- Descargar CV: colocá MoisesMorenoCV.pdf en esta misma carpeta -->
         <a href="./MoisesMorenoCV.pdf" download class="btn btn-ghost">
           <svg aria-hidden="true"><use href="#icon-download"/></svg>
           Descargar CV
